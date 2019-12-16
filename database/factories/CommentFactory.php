@@ -10,6 +10,6 @@ $factory->define(Comment::class, function (Faker $faker) {
     return [
         'user_id' =>$faker->randomElement($users),
         'review_id' => App\Review::pluck('id')->random(),
-        'comment' =>$faker->realText($faker->numberBetween(30,300))
+        'comment' =>$faker->paragraph($nbSentences = 3, $variableNbSentences = true)
     ];
 });

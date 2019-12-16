@@ -11,6 +11,6 @@ $factory->define(Review::class, function (Faker $faker) {
         'user_id'=>App\User::pluck('id')->random(),
         'review_title'=>$faker->catchPhrase,
         'rating'=>$faker->numberBetween(0,5),
-        'review'=>$faker->realText($faker->numberBetween(10,500))
+        'review'=>$faker->paragraph($nbSentences = 5, $variableNbSentences = true)
     ];
 });
