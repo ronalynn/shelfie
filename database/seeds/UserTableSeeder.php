@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
         $u->username = "Oprah4theWinfrey";
         $u->email = "oprah.winfrey@gmail.com";
         $u->password = "ims0Rich!";
-        //$u->save();
+        $u->save();
 
         // A user profile is made for each user created
         factory(App\User::class, 20)->create()->each(function($u) {
