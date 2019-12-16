@@ -11,4 +11,6 @@
   @endforeach
 </ul>
 
+<a href="{{ route('reviews.create') }}">Post a review!</a>
+
 @endsection

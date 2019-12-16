@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+      return view('users.create');
     }
 
     /**
@@ -35,7 +35,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validatedData = $request->validate([
+        'firstname' => 'required|max:255',
+        'lastname' => 'required|max:255',
+        'username' => 'required|required',
+        'email' => 'required|max:255',
+        'password' => 'required|min:8',
+      ]);
+
+      $u = new User;
+      $u->firstname = $validatedData['firstname'];
+      $u->lastname = $validatedData['lastname'];
+      $u->username = $validatedData['username'];
+      $u->email = $validatedData['email'];
+      $u->password = $validatedData['password'];
+      $u->save();
+
+      session()->flash('message', 'new user added');
+      return redirect()->route('users.index');
     }
 
     /**

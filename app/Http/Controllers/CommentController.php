@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Comment;
+use App\Review;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -24,7 +25,8 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+      $reviews = Review::orderBy('review_title','asc')->get();
+      return view('comments.create', ['reviews' => $reviews]);
     }
 
     /**
@@ -35,7 +37,20 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validatedData = $request->validate([
+        'user_id' => 'required|integer',
+        'review_id' => 'required|integer',
+        'comment' => 'required|max:255',
+      ]);
+
+      $c = new Comment;
+      $c->user_id = $validatedData['user_id'];
+      $c->review_id = $validatedData['review_id'];
+      $c->comment = $validatedData['comment'];
+      $c->save();
+
+      session()->flash('message', 'comment added');
+      return redirect()->route('comments.index');
     }
 
     /**

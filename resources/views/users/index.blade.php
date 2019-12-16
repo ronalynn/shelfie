@@ -7,4 +7,6 @@
     <li><a href="{{ route('users.show', ['id' => $user->id]) }}">{{$user->firstname}} {{$user->lastname}}</a></li>
   @endforeach
 </ol>
+
+<a href="{{ route('users.create') }}">Become a user</a>
 @endsection

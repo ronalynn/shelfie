@@ -24,7 +24,7 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+      return view('reviews.create');
     }
 
     /**
@@ -35,7 +35,24 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validatedData = $request->validate([
+        'book_id' => 'required|integer',
+        'user_id' => 'required|integer',
+        'review_title' => 'required|max:255',
+        'rating' => 'required|integer',
+        'review' => 'required|max:255',
+      ]);
+
+      $r = new Review;
+      $r->book_id = $validatedData['book_id']; //Gone Girl
+      $r->user_id = $validatedData['user_id']; // Oprah
+      $r->review_title = $validatedData['review_title'];
+      $r->rating = $validatedData['rating'];
+      $r->review = $validatedData['review'];
+      $r->save();
+
+      session()->flash('message', 'new review added');
+      return redirect()->route('reviews.index');
     }
 
     /**

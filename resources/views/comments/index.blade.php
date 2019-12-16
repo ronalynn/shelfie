@@ -7,4 +7,6 @@
     <li><a href="{{ route('comments.show', ['id' => $comment->id]) }}">{{ $comment->comment }}</a></li>
   @endforeach
 </ul>
+
+<a href="{{ route('comments.create') }}">Add comment</a>
 @endsection

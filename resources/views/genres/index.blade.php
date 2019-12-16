@@ -7,4 +7,6 @@
     <li><a href="{{ route('genres.show', ['id' => $genre->id]) }}">{{$genre->genre}}</a></li>
   @endforeach
 </ul>
+
+<a href="{{ route('genres.create') }}">Add a new genre</a>
 @endsection

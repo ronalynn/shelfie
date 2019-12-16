@@ -24,7 +24,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+      return view('profiles.create');
     }
 
     /**
@@ -35,7 +35,27 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validatedData = $request->validate([
+        'about_me' => 'max:255',
+        'avatar' => 'max:255',
+        'city' => 'max:255',
+        'country' => 'max:255',
+        'age' => 'integer',
+        'user_id' => 'required|integer'
+        ,
+      ]);
+
+      $p = new Profile;
+      $p->about_me = $validatedData['about_me'];
+      $p->avatar= $validatedData['avatar'];
+      $p->city = $validatedData['city'];
+      $p->country = $validatedData['country'];
+      $p->age = $validatedData['age'];
+      $p->user_id = $validatedData['user_id'];
+      $p->save();
+
+      session()->flash('message', 'profile added');
+      return redirect()->route('profiles.index');
     }
 
     /**

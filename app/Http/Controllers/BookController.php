@@ -25,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+      return view('books.create');
     }
 
     /**
@@ -36,7 +36,24 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'author' => 'required|max:255',
+        'pages' => 'required|integer',
+        'isbn' => 'required|integer',
+        'publisher' => 'required|max:255',
+      ]);
+
+      $b = new Book;
+      $b->title = $validatedData['title'];
+      $b->author = $validatedData['author'];
+      $b->pages = $validatedData['pages'];
+      $b->isbn = $validatedData['isbn'];
+      $b->publisher = $validatedData['publisher'];
+      $b->save();
+
+      session()->flash('message', 'new book added');
+      return redirect()->route('books.index');
     }
 
     /**
