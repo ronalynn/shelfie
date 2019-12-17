@@ -7,5 +7,11 @@
   <li>Comment: {{$comment->comment}}</li>
 </ul>
 
+<form method="POST" action="{{ route('comments.destroy', ['id' => $comment->id]) }}">
+  @csrf
+  @method('DELETE')
+  <button type="submit">delete</button>
+</form>
+
 <p><a href="{{ route('comments.index')}}">Back</a></p>
 @endsection

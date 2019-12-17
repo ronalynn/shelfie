@@ -37,7 +37,7 @@ Route::get('genres', 'GenreController@index')->name('genres.index');
 Route::get('genres/create', 'GenreController@create')->name('genres.create');
 Route::post('genres', 'GenreController@store')->name('genres.store');
 Route::get('genres/{id}', 'GenreController@show')->name('genres.show');
-Route::delete('genres/{id}', 'GenreController@destroy')->name('genre.destroy');
+Route::delete('genres/{id}', 'GenreController@destroy')->name('genres.destroy');
 
 Route::get('users', 'UserController@index')->name('users.index');
 Route::get('users/create', 'UserController@create')->name('users.create');

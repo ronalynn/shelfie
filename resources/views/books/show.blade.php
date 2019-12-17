@@ -9,5 +9,11 @@
   <li>Publisher: {{ $book->publisher }}</li>
 </ul>
 
+<form method="POST" action="{{ route('books.destroy', ['id' => $book->id]) }}">
+  @csrf
+  @method('DELETE')
+  <button type="submit">delete</button>
+</form>
+
 <p><a href="{{ route('books.index')}}">Back</a></p>
 @endsection

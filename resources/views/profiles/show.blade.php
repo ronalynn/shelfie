@@ -7,8 +7,13 @@
   <li>Avatar: {{$profile->avatar}}</li>
   <li>Location: {{$profile->city}}, {{$profile->country}}</li>
   <li>Age: {{$profile->age}}</li>
-  
 </ul>
+
+  <form method="POST" action="{{ route('profiles.destroy', ['id' => $profile->id]) }}">
+    @csrf
+    @method('DELETE')
+    <button type="submit">delete</button>
+  </form>
 
   <p><a href="{{ route('profiles.index')}}">Back</a></p>
 

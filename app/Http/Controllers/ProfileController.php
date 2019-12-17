@@ -101,6 +101,8 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $profile = Profile::findOrFail($id);
+      $profile->delete();
+      return redirect()->route('profiles.index')->with('message','Profile was deleted');
     }
 }
