@@ -4,7 +4,7 @@
 <p>lots o genres</p>
 <ul>
   @foreach($genres as $genre)
-    <li><a href="{{ route('genres.show', ['id' => $genre->id]) }}">{{$genre->genre}}</a></li>
+    <li><a href="{{ route('genres.show', ['genre' => $genre->id]) }}">{{$genre->genre}}</a></li>
   @endforeach
 </ul>
 

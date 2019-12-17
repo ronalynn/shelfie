@@ -4,7 +4,7 @@
 <p>lots o comments</p>
 <ul>
   @foreach($comments as $comment)
-    <li><a href="{{ route('comments.show', ['id' => $comment->id]) }}">{{ $comment->comment }}</a></li>
+    <li><a href="{{ route('comments.show', ['comment' => $comment->id]) }}">{{ $comment->comment }}</a></li>
   @endforeach
 </ul>
 

@@ -4,7 +4,7 @@
 <p>lots o users</p>
 <ol>
   @foreach($users as $user)
-    <li><a href="{{ route('users.show', ['id' => $user->id]) }}">{{$user->firstname}} {{$user->lastname}}</a></li>
+    <li><a href="{{ route('users.show', ['user' => $user->id]) }}">{{$user->firstname}} {{$user->lastname}}</a></li>
   @endforeach
 </ol>
 
