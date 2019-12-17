@@ -18,6 +18,6 @@ class CommentTableSeeder extends Seeder
       $c->comment = "great review!";
       $c->save();
 
-      factory(App\Comment::class, 50)->create();
+      factory(App\Comment::class, 30)->create();
     }
 }

@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
         $u->save();
 
         // A user profile is made for each user created
-        factory(App\User::class, 20)->create()->each(function($u) {
+        factory(App\User::class, 10)->create()->each(function($u) {
           $u->profile()
             ->save(factory(App\Profile::class)->make());
         });

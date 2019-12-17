@@ -20,12 +20,12 @@ class BookTableSeeder extends Seeder
         $b->publisher = "Crown Publishing Group";
         $b->save();
 
-        $books = factory(App\Book::class, 10)->create();
+        $books = factory(App\Book::class, 5)->create();
         $genres = factory(App\Genre::class, 10)->create();
         // attaches 1 to 5 of the 10 genres for each book created.
         $books->each(function(App\Book $b) use ($genres){
           $b->genres()->attach(
-            $genres->random(rand(1,3))->pluck('id')->toArray());
+            $genres->random(rand(1,5))->pluck('id')->toArray());
         });
     }
 }

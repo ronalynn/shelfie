@@ -25,6 +25,6 @@ class ReviewTableSeeder extends Seeder
         you’re in for the ride.";
         $r->save();
 
-        factory(App\Review::class, 20)->create();
+        factory(App\Review::class, 10)->create();
     }
 }
