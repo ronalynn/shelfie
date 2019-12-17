@@ -15,9 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('books', 'BookController@index')->name('books.index');
 Route::get('books/create', 'BookController@create')->name('books.create');
 Route::post('books', 'BookController@store')->name('books.store');
@@ -53,3 +50,7 @@ Route::get('profiles/create', 'ProfileController@create')->name('profiles.create
 Route::post('profiles', 'ProfileController@store')->name('profiles.store');
 Route::get('profiles/{profile}', 'ProfileController@show')->name('profiles.show');
 Route::delete('profiles/{id}', 'ProfileController@destroy')->name('profiles.destroy');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
