@@ -54,3 +54,7 @@ Route::delete('profiles/{id}', 'ProfileController@destroy')->name('profiles.dest
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
