@@ -6,18 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    public function user()
-    {
-      return $this->belongsTo('App\User');
-    }
 
-    public function book()
-    {
-      return $this->belongsTo('App\Book');
-    }
+  protected $guarded = [];
 
-    public function comments()
-    {
-      return $this->hasMany('App\Comment');
+  public function user(){
+      return $this->belongsTo(User::class);
     }
 }

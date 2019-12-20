@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'username', 'email', 'password',
+        'name', 'username', 'email', 'password',
     ];
 
     /**
@@ -37,20 +37,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->profile()->create([
+                'bio' => $user->username,
+            ]);
+
+            Mail::to($user->email)->send(new NewUserWelcomeMail());
+        });
+    }
+
+
+
     public function profile()
     {
-      return $this->hasOne('App\Profile');
+        return $this->hasOne(Profile::class);
     }
 
-    public function reviews()
-    {
-      return $this->hasMany('App\Review');
+    public function reviews(){
+      return $this->hasMany(Review::class)->orderBy('created_at','DESC');
     }
-
-    public function comments()
-    {
-      return $this->hasMany('App\Comment');
-    }
-
 
 }

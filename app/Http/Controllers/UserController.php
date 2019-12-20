@@ -36,16 +36,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
       $validatedData = $request->validate([
-        'firstname' => 'required|max:255',
-        'lastname' => 'required|max:255',
-        'username' => 'required|max:15',
+        'name' => 'required|max:255',
+        'username' => 'required|max:255',
         'email' => 'required',
         'password' => 'required|min:8',
       ]);
 
       $u = new User;
-      $u->firstname = $validatedData['firstname'];
-      $u->lastname = $validatedData['lastname'];
+      $u->name = $validatedData['name'];
       $u->username = $validatedData['username'];
       $u->email = $validatedData['email'];
       $u->password = $validatedData['password'];

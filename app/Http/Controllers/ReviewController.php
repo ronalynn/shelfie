@@ -6,100 +6,32 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      $reviews = Review::all();
-      return view('reviews.index', ['reviews' => $reviews]);
+    public function __construct(){
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      return view('reviews.create');
+    public function create(){
+        return view('reviews.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-      $validatedData = $request->validate([
-        'book_id' => 'required|integer',
-        'user_id' => 'required|integer',
-        'review_title' => 'required|max:255',
-        'rating' => 'required|integer',
-        'review' => 'required|max:255',
-      ]);
+    public function store(){
 
-      $r = new Review;
-      $r->book_id = $validatedData['book_id']; //Gone Girl
-      $r->user_id = $validatedData['user_id']; // Oprah
-      $r->review_title = $validatedData['review_title'];
-      $r->rating = $validatedData['rating'];
-      $r->review = $validatedData['review'];
-      $r->save();
+        $data=request()->validate([
+            'review'=>'required|max:2000',
+            'image'=>'required|image',
+        ]);
 
-      session()->flash('message', 'new review added');
-      return redirect()->route('reviews.index');
+        $imagePath = request('image')->store('uploads','public');
+        
+        auth()->user()->reviews()->create([
+            'review' => $data['review'],
+            'image' => $imagePath,
+        ]);
+
+        return redirect('/profile/' . auth()->user()->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-      $review = Review::findOrFail($id);
-      return view('reviews.show', ['review' => $review]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-      $review = Review::findOrFail($id);
-      $review->delete();
-      return redirect()->route('reviews.index')->with('message','Review was deleted');
+    public function show(Review $review){
+        return view('reviews.show', ['review'=>$review]);
     }
 }

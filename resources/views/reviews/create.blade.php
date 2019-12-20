@@ -1,31 +1,47 @@
-@extends ('layouts.app')
-
-@section('title', 'Create Book Review')
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <form action="/r" enctype="multipart/form-data" method="POST">
+        @csrf
+        <div class="row">
+            <div class="col-8 offset-2">
 
-  <form method="POST" action="{{ route('reviews.store') }}">
+                <div class="row align">
+                    <h1>Add New Review</h1>
+                </div>
 
-    @csrf
-    <p>Title: <input type="text" name="review_title"
-      value="{{ old('review_title') }}"></p>
+                <div class="row pb-2">
+                    <label for="image" class="col-md-4 col-form-label">Upload Image:</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
 
-    <p>Book: <input type="text" name="book_id"
-      value="{{ old('book_id') }}">
-    </p>
+                    @if ($errors->has('image'))
+                        <strong>{{ $errors->first('image') }}</strong>
+                    @endif
+                </div>
 
-    <p>User: <input type="text" name="user_id"
-      value="{{ old('user_id') }}"></p>
+                <div class="form-group row">
+                    <label for="review" class="col-md-4 col-form-label">Review:</label>
+                    
+                        <textarea id="review" type="text" class="form-control @error('review') is-invalid @enderror" 
+                            rows="7" name="review" value="{{ old('review') }}" required autocomplete="review" autofocus></textarea>
 
-    <p>Rating <input type="text" name="rating"
-      value="{{ old('rating') }}"></p>
+                        @error('review')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                </div>
 
-    <p>Review: <input type="text" name="review"
-      value="{{ old('review') }}"></p>
+                <div class="row">
+                    <button class="btn btn-primary">post review</button>
+                    <a href="{{ 'profiles.index' }}">cancel</a>
+                </div>
 
-    <input type="submit" value="Submit">
-    <a href="{{ route('reviews.index') }}"> Cancel </a>
 
-  </form>
+            </div>
+        </div>
+    </form>
 
+</div>
 @endsection

@@ -2,22 +2,14 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+  <div class="row pt-3">
+    <ul>
+      @foreach($reviews as $review)
+        <li><a href="{{ route('reviews.show', ['review' => $review->id]) }}">{{$review->id}}</a></li>
+      @endforeach
+    </ul>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+  </div>
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
